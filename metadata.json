@@ -1,0 +1,7 @@
+{
+  "name": "GlowGuide - 智能护肤管家",
+  "description": "一个可视化、交互式的个人护肤日程管理应用，集成了Gemini AI咨询服务，帮助用户精准执行护肤流程。",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
