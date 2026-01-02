@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI } from "@google/genai";
-import { SKINCARE_SCHEDULE } from './constants';
-import { DayRoutine, ChatMessage } from './types';
+import { SKINCARE_SCHEDULE, BODY_CARE_SCHEDULE } from './constants';
+import { DayRoutine, ChatMessage, BodyCareRoutine } from './types';
 
 // Icons as components
 const SunIcon = () => (
@@ -49,8 +49,9 @@ const App: React.FC = () => {
         contents: inputValue,
         config: {
           systemInstruction: `你是 GlowGuide 的专业护肤助手。
-          当前用户的护肤日程是：${JSON.stringify(SKINCARE_SCHEDULE)}。
-          请根据该日程，回答用户关于产品成分、使用顺序、皮肤状况（如过敏、爆痘）的处理建议。
+          当前用户的面部护肤日程是：${JSON.stringify(SKINCARE_SCHEDULE)}。
+          当前用户的身体护理日程是：${JSON.stringify(BODY_CARE_SCHEDULE)}。
+          请根据该日程，回答用户关于产品成分、使用顺序、皮肤状况（如过敏、爆痘）的处理建议，包括面部和身体护理。
           你的语气应该是专业、温和且具有鼓励性的。如果用户提到严重的过敏或皮肤损伤，请务必建议其咨询皮肤科医生。`,
         },
       });
@@ -167,6 +168,31 @@ const App: React.FC = () => {
             </div>
           </div>
           
+          {/* Body Care Section */}
+          <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl p-6 text-white shadow-lg shadow-purple-200/50">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-white/20 rounded-lg">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h4 className="font-bold text-lg">身体护理</h4>
+            </div>
+            <div className="space-y-2">
+              {BODY_CARE_SCHEDULE.map((bodyCare) => (
+                <div 
+                  key={bodyCare.day}
+                  className={`flex items-center justify-between p-3 rounded-xl bg-white/10 backdrop-blur-sm ${
+                    selectedDay.day === bodyCare.day ? 'bg-white/20 ring-2 ring-white/50' : ''
+                  }`}
+                >
+                  <span className="font-semibold text-sm">{bodyCare.day}</span>
+                  <span className="text-sm text-purple-50">{bodyCare.products}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Tip Card */}
           <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-6 text-white shadow-lg shadow-emerald-200/50">
              <div className="flex items-center gap-3 mb-3">

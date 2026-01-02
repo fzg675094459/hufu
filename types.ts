@@ -18,3 +18,8 @@ export interface ChatMessage {
   role: 'user' | 'model';
   content: string;
 }
+
+export interface BodyCareRoutine {
+  day: string;
+  products: string;
+}
